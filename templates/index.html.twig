@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}doz.pl recruiting task{% endblock %}
+
+{% block body %}
+    <h1>doz.pl recruiting task</h1>>
+    <ol>
+        <li>
+        Lista aptek w pliku JSON (załącznik) dostarczona przez DOZ na email zawierająca pola:
+            <ul>
+                <li>nazwa - tekst</li>
+                <li>kod_pocztowy - tekst</li>
+                <li>ulica - tekst</li>
+                <li>miejscowosc - tekst</li>
+                <li>gps_dlugosc – wartość liczbowa</li>
+                <li>gps_szerokosc – wartość liczbowa</li>
+            </ul>
+        </li>
+        <li>import pliku JSON  przez formularz (plik->przeglądaj->wyślij)</li>
+        <li>zasilenie bazy danych danymi z pliku JSON</li>
+        <li>wyświetlanie danych w tabelce + paginacja + filtrowanie po: nazwie, miejscowości, kodzie pocztowym</li>
+        <li>eksport wyników wyszukiwania do pliku JSON, CSV lub XML (bez paginacji)</li>
+        <li>dowolny framework php</li>
+        <li>Jeśli to możliwe, zastosować wybrane wzorce projektowe (design patterns)</li>
+        <li>aplikacja i baza danych uruchomione w dockerze (opcjonalnie)</li>
+        <li>napisać kilka przykładowych testów do tego (unit tests)</li>
+        <li>wystawiony kod na publicznym repozytorium Git'a i udostępnienie go do wglądu (gitlab/github)</li>
+        <li>przygotować kolekcję Postman do przetestowania wybranego endpointu (GET/POST), min 2 requesty</li>
+    </ol>
+    Pozdrawiam.
+{% endblock %}

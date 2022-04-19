@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pharmacy index{% endblock %}
+
+{% block body %}
+
+    {% set query = app.request.query.all %}
+
+    <h1>Pharmacy index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>PostIndex</th>
+            <th>Street</th>
+            <th>Town</th>
+            <th>Longitude</th>
+            <th>Latitude</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+            <td></td>
+            <td>
+                <form method="get">
+                    <input class="form-control" name="name" value="{{ query['name'] ?? '' }}" placeholder="Filter...">
+                    <input type="hidden" name="postIndex" value="{{ query['postIndex'] ?? '' }}">
+                    <input type="hidden" name="town" value="{{ query['town'] ?? '' }}">
+                </form>
+            </td>
+            <td>
+                <form method="get">
+                    <input type="hidden" name="name" value="{{ query['name'] ?? '' }}">
+                    <input class="form-control" name="postIndex" value="{{ query['postIndex'] ?? '' }}"
+                           placeholder="Filter...">
+                    <input type="hidden" name="town" value="{{ query['town'] ?? '' }}">
+                </form>
+            </td>
+            <td></td>
+            <td>
+                <form method="get">
+                    <input type="hidden" name="name" value="{{ query['name'] ?? '' }}">
+                    <input type="hidden" name="postIndex" value="{{ query['postIndex'] ?? '' }}">
+                    <input class="form-control" name="town" value="{{ query['town'] ?? '' }}" placeholder="Filter...">
+                </form>
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        </form>
+
+        {% for pharmacy in paginate %}
+            <tr>
+                <td>{{ pharmacy.id }}</td>
+                <td>{{ pharmacy.name }}</td>
+                <td>{{ pharmacy.postIndex }}</td>
+                <td>{{ pharmacy.street }}</td>
+                <td>{{ pharmacy.town }}</td>
+                <td>{{ pharmacy.longitude }}</td>
+                <td>{{ pharmacy.latitude }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% if(endPage > 1) %}
+
+        <div class="pagination">
+
+            <ul>
+                {% if page > 1 %}
+                    <li>
+                        <a href="{{ path(app.request.get('_route'), query | merge({page: page - 1})) }}">Prev</a>
+                    </li>
+                {% endif %}
+
+                {% for currentPage in startPage..endPage %}
+                    {% if(currentPage <= endPage) %}
+
+                        <li {% if page == currentPage %} class="active" {% endif %}>
+                            <a href="{{ path(app.request.get('_route'), query | merge({page: currentPage})) }}">
+                                {{ currentPage }}
+                            </a>
+                        </li>
+                    {% endif %}
+
+                {% endfor %}
+
+                {% if page < pages %}
+                    <li>
+                        <a href="{{ path(app.request.get('_route'), query | merge({page: page + 1})) }}">Next</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+
+    {% endif %}
+
+    <a href="{{ path('app_pharmacy_new') }}" class="btn btn-success">Create new</a>
+    <a href="{{ path('app_pharmacy_upload') }}" class="btn btn-warning">Import file</a>
+    <a href="{{ path('app_pharmacy_download') }}" class="btn btn-warning">Export file</a>
+
+{% endblock %}
+

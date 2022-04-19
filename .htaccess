@@ -1,0 +1,13 @@
+#Options +SymLinksIfOwnerMatch
+IndexIgnore */*
+RewriteEngine on
+
+RewriteCond %{REQUEST_URI} !^/(web)
+RewriteRule (.*) /public/$1
+
+#   RewriteCond %{REQUEST_URI} ^/(assets|css|js|images)
+#    RewriteRule ^assets/(.*)$ frontend/web/assets/$1 [L]
+
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule . /public/index.php
